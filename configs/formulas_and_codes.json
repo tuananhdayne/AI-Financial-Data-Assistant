@@ -1,0 +1,223 @@
+{
+  "circular_200_standard_codes": {
+    "balance_sheet": {
+      "TỔNG CỘNG TÀI SẢN": "270",
+      "A. TÀI SẢN NGĂN HẠN": "100",
+      "I. Tiền và các khoản tương đương tiền": "110",
+      "1. Tiền": "111",
+      "2. Các khoản tương đương tiền": "112",
+      "II. Đầu tư tài chính ngắn hạn": "120",
+      "III. Các khoản phải thu ngắn hạn": "130",
+      "IV. Hàng tồn kho": "140",
+      "V. Tài sản ngắn hạn khác": "150",
+      "B. TÀI SẢN DÀI HẠN": "200",
+      "I. Các khoản phải thu dài hạn": "210",
+      "II. Tài sản cố định": "220",
+      "1. Tài sản cố định hữu hình": "221",
+      "2. Tài sản cố định thuê tài chính": "224",
+      "3. Tài sản cố định vô hình": "227",
+      "III. Bất động sản đầu tư": "230",
+      "IV. Tài sản dở dang dài hạn": "240",
+      "V. Đầu tư tài chính dài hạn": "250",
+      "VI. Tài sản dài hạn khác": "260",
+      "C. NỢ PHẢI TRẢ": "300",
+      "I. Nợ ngắn hạn": "310",
+      "1. Phải trả người bán ngắn hạn": "311",
+      "2. Người mua trả tiền trước ngắn hạn": "312",
+      "3. Thuế và các khoản phải nộp Nhà nước": "313",
+      "6. Vay và nợ thuê tài chính ngắn hạn": "320",
+      "Quỹ khen thưởng, phúc lợi": "322",
+      "II. Nợ dài hạn": "330",
+      "8. Vay và nợ thuê tài chính dài hạn": "338",
+      "D. VỐN CHỦ SỞ HỮU": "400",
+      "I. Vốn chủ sở hữu": "410",
+      "1. Vốn góp của chủ sở hữu": "411",
+      "2. Thặng dư vốn cổ phần": "412",
+      "8. Quỹ đầu tư phát triển": "418",
+      "11. Lợi nhuận sau thuế chưa phân phối": "421",
+      "- LNST chưa phân phối lũy kế đến cuối kỳ trước": "421a",
+      "- LNST chưa phân phối kỳ này": "421b",
+      "TỔNG CỘNG NGUỒN VỐN": "440",
+      "Tiền mặt, vàng bạc, đá quý": "01",
+      "Tiền gửi tại Ngân hàng Nhà nước": "02",
+      "Tiền gửi và cho vay các TCTD khác": "03",
+      "Cho vay khách hàng": "10",
+      "Dự phòng rủi ro cho vay khách hàng": "11",
+      "Chứng khoán kinh doanh": "12",
+      "Tiền gửi của khách hàng": "40",
+      "Phát hành giấy tờ có giá": "43",
+      "Vốn chủ sở hữu": "60"
+    },
+    "income_statement": {
+      "1. Doanh thu bán hàng và cung cấp dịch vụ": "01",
+      "2. Các khoản giảm trừ doanh thu": "02",
+      "3. Doanh thu thuần về bán hàng và cung cấp dịch vụ": "10",
+      "4. Giá vốn hàng bán": "11",
+      "5. Lợi nhuận gộp về bán hàng và cung cấp dịch vụ": "20",
+      "6. Doanh thu hoạt động tài chính": "21",
+      "7. Chi phí tài chính": "22",
+      "- Trong đó: Chi phí lãi vay": "23",
+      "8. Chi phí bán hàng": "25",
+      "9. Chi phí quản lý doanh nghiệp": "26",
+      "10. Lợi nhuận thuần từ hoạt động kinh doanh": "30",
+      "11. Thu nhập khác": "31",
+      "12. Chi phí khác": "32",
+      "13. Lợi nhuận khác": "40",
+      "14. Tổng lợi nhuận kế toán trước thuế": "50",
+      "15. Chi phí thuế TNDN hiện hành": "51",
+      "16. Chi phí thuế TNDN hoãn lại": "52",
+      "17. Lợi nhuận sau thuế thu nhập doanh nghiệp": "60",
+      "Lợi nhuận sau thuế": "30",
+      "Lợi nhuận sau thuế TNDN": "200",
+      "- Lợi nhuận sau thuế của công ty mẹ": "61",
+      "- Lợi nhuận sau thuế của cổ đông không kiểm soát": "62",
+      "18. Lãi cơ bản trên cổ phiếu": "70",
+      "19. Lãi suy giảm trên cổ phiếu": "71",
+      "Thu nhập lãi thuần": "03",
+      "Lãi thuần từ hoạt động dịch vụ": "07",
+      "Lãi thuần từ kinh doanh ngoại hối": "11",
+      "Lãi thuần từ mua bán chứng khoán kinh doanh": "15",
+      "Chi phí hoạt động": "22",
+      "Chi phí trích lập dự phòng rủi ro tín dụng": "24",
+      "Tổng lợi nhuận trước thuế": "27"
+    },
+    "cash_flow_statement_direct_and_indirect": {
+      "1. Lợi nhuận trước thuế / Lợi nhuận toán trước thuế": "01",
+      "Khấu hao tài sản cố định": "02",
+      "Các khoản dự phòng": "03",
+      "Lãi/lỗ chênh lệch tỷ giá hối đoái": "04",
+      "Lãi/lỗ từ hoạt động đầu tư": "05",
+      "Chi phí lãi vay": "06",
+      "Lưu chuyển tiền thuần từ hoạt động kinh doanh (CFO)": "20",
+      "Lưu chuyển tiền thuần từ hoạt động đầu tư (CFI)": "30",
+      "Lưu chuyển tiền thuần từ hoạt động tài chính (CFF)": "40",
+      "Lưu chuyển tiền thuần trong kỳ": "50",
+      "Tiền và tương đương tiền đầu kỳ": "60",
+      "Ảnh hưởng của thay đổi tỷ giá hối đoái": "61",
+      "Tiền và tương đương tiền cuối kỳ": "70"
+    },
+    "custom_metric_synonyms": {
+      "Lợi nhuận sau thuế": [
+        "60",
+        "200",
+        "30"
+      ],
+      "Lợi nhuận sau thuế TNDN": [
+        "60",
+        "200",
+        "30"
+      ],
+      "Lãi tiền gửi": "21",
+      "Lãi tiền gửi ngân hàng": "21",
+      "Thu nhập tài chính": "21",
+      "Doanh thu tài chính": "21",
+      "Chi phí lãi vay": "23",
+      "Vốn điều lệ": "411",
+      "Quỹ khen thưởng phúc lợi": "322",
+      "Vốn chủ sở hữu": [
+        "400",
+        "60"
+      ],
+      "Cho vay khách hàng": "10",
+      "Tiền gửi của khách hàng": "40",
+      "Thu nhập lãi thuần": "03"
+    }
+  },
+  "financial_formula_templates": {
+    "ROE (Return on Equity)": {
+      "formula": "Lợi nhuận sau thuế (mẹ) / Vốn chủ sở hữu",
+      "pandas_logic": "float(pd.Series(income_df[income_df['1'].astype(str).str.strip().isin(['61', '60'])]['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '400']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 61 hoặc 60 trên Báo cáo KQKD chia cho Mã số 400 trên Bảng Cân đối kế toán."
+    },
+    "ROA (Return on Assets)": {
+      "formula": "Lợi nhuận sau thuế / Tổng tài sản",
+      "pandas_logic": "float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '60']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '270']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 60 trên Báo cáo KQKD chia cho Mã số 270 trên Bảng Cân đối kế toán."
+    },
+    "Biên Lợi nhuận gộp (Gross Profit Margin)": {
+      "formula": "Lợi nhuận gộp / Doanh thu thuần",
+      "pandas_logic": "float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '20']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 20 chia cho Mã số 10 trên Báo cáo KQKD."
+    },
+    "Biên Lợi nhuận ròng (Net Profit Margin)": {
+      "formula": "Lợi nhuận sau thuế / Doanh thu thuần",
+      "pandas_logic": "float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '60']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 60 chia cho Mã số 10 trên Báo cáo KQKD."
+    },
+    "Tỉ lệ Nợ / Vốn chủ sở hữu (D/E Ratio)": {
+      "formula": "Nợ phải trả / Vốn chủ sở hữu",
+      "pandas_logic": "float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '300']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '400']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 300 chia cho Mã số 400 trên Bảng Cân đối kế toán."
+    },
+    "Tỉ lệ Vốn chủ sở hữu / Tổng tài sản": {
+      "formula": "Vốn chủ sở hữu / Tổng tài sản",
+      "pandas_logic": "float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '400']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '270']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 400 chia cho Mã số 270 trên Bảng Cân đối kế toán."
+    },
+    "Hệ số thanh toán hiện hành (Current Ratio)": {
+      "formula": "Tài sản ngắn hạn / Nợ ngắn hạn",
+      "pandas_logic": "float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '100']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '310']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 100 chia cho Mã số 310 trên Bảng Cân đối kế toán."
+    },
+    "Hệ số thanh toán nhanh (Quick Ratio)": {
+      "formula": "(Tài sản ngắn hạn - Hàng tồn kho) / Nợ ngắn hạn",
+      "pandas_logic": "(float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '100']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) - float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '140']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0))) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '310']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy (Mã số 100 - Mã số 140) tất cả chia cho Mã số 310 trên Bảng Cân đối kế toán."
+    },
+    "Hệ số khả năng thanh toán lãi vay (Interest Coverage Ratio)": {
+      "formula": "EBIT / Chi phí lãi vay = (Lợi nhuận trước thuế + Chi phí lãi vay) / Chi phí lãi vay",
+      "pandas_logic": "(float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '50']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) + float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '23']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0))) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '23']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy (Mã số 50 + Mã số 23) chia cho Mã số 23 trên Báo cáo KQKD."
+    },
+    "Hệ số dòng tiền hoạt động trên nợ ngắn hạn": {
+      "formula": "CFO / Nợ ngắn hạn",
+      "pandas_logic": "float(pd.Series(cf_df[cf_df['1'].astype(str).str.strip() == '20']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '310']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 20 trên Báo cáo Lưu chuyển tiền tệ chia cho Mã số 310 trên Bảng Cân đối kế toán."
+    },
+    "Số ngày tồn kho (Days Inventory Outstanding - DIO)": {
+      "formula": "(Hàng tồn kho bình quân / Giá vốn hàng bán) * 365",
+      "pandas_logic": "(float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '140']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '11']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))) * 365",
+      "description": "Lấy Hàng tồn kho bình quân (Mã số 140) chia cho Giá vốn hàng bán (Mã số 11) trên Báo cáo KQKD, nhân với 365."
+    },
+    "Tỷ số dồn tích - Phương pháp Lưu chuyển tiền tệ (Cash Flow Accrual Ratio)": {
+      "formula": "(Lợi nhuận sau thuế - (CFO + CFI)) / Tổng tài sản bình quân",
+      "pandas_logic": "(float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '60']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) - (float(pd.Series(cf_df[cf_df['1'].astype(str).str.strip() == '20']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) + float(pd.Series(cf_df[cf_df['1'].astype(str).str.strip() == '30']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)))) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '270']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Lợi nhuận sau thuế (Mã số 60) trừ đi tổng của CFO (Mã số 20) và CFI (Mã số 30), sau đó chia cho Tổng tài sản bình quân (Mã số 270)."
+    },
+    "Tăng trưởng doanh thu thuần": {
+      "formula": "(Doanh thu thuần năm nay - Doanh thu thuần năm trước) / Doanh thu thuần năm trước",
+      "pandas_logic": "(float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) - float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['4'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0))) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['4'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Tính dựa trên giá trị cột năm nay (Mã số 10) và năm trước trên cùng Báo cáo KQKD."
+    },
+    "CFO Margin (Biên dòng tiền)": {
+      "formula": "(Lưu chuyển tiền thuần từ HĐKD / Doanh thu thuần) * 100",
+      "pandas_logic": "(float(pd.Series(cf_df[cf_df['1'].astype(str).str.strip() == '20']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))) * 100",
+      "description": "Lấy Mã số 20 trên Báo cáo Lưu chuyển tiền tệ chia cho Mã số 10 trên Báo cáo KQKD, nhân với 100."
+    },
+    "Vốn lưu động thuần (NWC)": {
+      "formula": "Tài sản ngắn hạn (mã 100) - Nợ ngắn hạn (mã 310)",
+      "pandas_logic": "float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '100']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) - float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '310']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0))",
+      "description": "Lấy Mã số 100 trừ đi Mã số 310 trên Bảng Cân đối kế toán."
+    },
+    "Vòng quay Tổng tài sản": {
+      "formula": "Doanh thu thuần (mã 10) / Tổng tài sản bình quân (mã 270)",
+      "pandas_logic": "float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '270']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 10 trên Báo cáo KQKD chia cho Tổng tài sản bình quân (Mã số 270) trên Bảng Cân đối kế toán."
+    },
+    "SG&A Intensity": {
+      "formula": "((Chi phí bán hàng mã 25 + Chi phí QLDN mã 26) / Doanh thu thuần mã 10) * 100",
+      "pandas_logic": "((float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '25']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) + float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '26']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0))) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '10']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))) * 100",
+      "description": "Lấy tổng Chi phí bán hàng (mã 25) và Chi phí quản lý doanh nghiệp (mã 26) chia cho Doanh thu thuần (mã 10) trên Báo cáo KQKD, nhân với 100."
+    },
+    "Tỷ lệ Nợ nần (Debt Ratio)": {
+      "formula": "(Tổng nợ phải trả mã 300 / Tổng tài sản mã 270) * 100",
+      "pandas_logic": "(float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '300']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(balance_df[balance_df['1'].astype(str).str.strip() == '270']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))) * 100",
+      "description": "Lấy Mã số 300 chia cho Mã số 270 trên Bảng Cân đối kế toán, nhân với 100."
+    },
+    "Hệ số Chuyển đổi Lợi nhuận": {
+      "formula": "CFO (mã 20 LCTT) / Lợi nhuận sau thuế (mã 60 KQKD)",
+      "pandas_logic": "float(pd.Series(cf_df[cf_df['1'].astype(str).str.strip() == '20']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 0.0)) / float(pd.Series(income_df[income_df['1'].astype(str).str.strip() == '60']['3'].values).replace(['-', '–', 'N/A', ''], '0').fillna('0').get(0, 1.0))",
+      "description": "Lấy Mã số 20 trên Báo cáo LCTT chia cho Mã số 60 trên Báo cáo KQKD."
+    }
+  }
+}

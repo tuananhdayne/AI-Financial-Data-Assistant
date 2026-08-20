@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "question": "Lãi tiền gửi năm 2018 của công ty mẹ CTCP Hàng không Vietjet (VJC) là bao nhiêu triệu đồng?",
+    "ticker": "VJC",
+    "year": 2018,
+    "report_type": "separate",
+    "relevant_docs": ["VJC_financial_statements_2018_separate"],
+    "relevant_tables": ["VJC_financial_statements_2018_separate|50"],
+    "evidence": [
+      {
+        "variable": "df1",
+        "csv_path": "data/VJC_financial_statements_2018_separate_table_50.csv"
+      }
+    ],
+    "pandas_query": "float(df1[df1['0'] == 'Lãi tiền gửi']['1'].values[0]) / 1e6",
+    "answer": 208253.201298
+  },
+  {
+    "id": 4,
+    "question": "Lợi nhuận sau thuế của CTCP Chứng khoán FPT năm 2023 là bao nhiêu tỷ đồng?",
+    "ticker": "FTS",
+    "year": 2023,
+    "report_type": "separate",
+    "relevant_docs": ["FTS_financial_statements_2023"],
+    "relevant_tables": ["FTS_financial_statements_2023|12"],
+    "evidence": [
+      {
+        "variable": "df1",
+        "csv_path": "data/FTS_financial_statements_2023_table_12.csv"
+      }
+    ],
+    "pandas_query": "float(df1[df1['1'] == '200']['3'].values[0]) / 1e9",
+    "answer": 444.917590949
+  },
+  {
+    "id": 9,
+    "question": "Chi phí khác của SAM năm 2023 là bao nhiêu triệu đồng?",
+    "ticker": "SAM",
+    "year": 2023,
+    "report_type": "consolidated",
+    "relevant_docs": ["SAM_financial_statements_2023_consolidated"],
+    "relevant_tables": ["SAM_financial_statements_2023_consolidated|8"],
+    "evidence": [
+      {
+        "variable": "df1",
+        "csv_path": "data/SAM_financial_statements_2023_consolidated_table_8.csv"
+      }
+    ],
+    "pandas_query": "float(df1[df1['0'] == '32']['3'].values[0]) / 1e6",
+    "answer": 2949.600088
+  }
+]

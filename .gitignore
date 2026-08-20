@@ -1,0 +1,22 @@
+# Python cache & virtualenvs
+__pycache__/
+*.pyc
+.venv/
+.venv*/
+venv/
+.huggingface/
+.idea/
+.vscode/
+
+# Large Datasets & Extracted Tables (Store externally)
+data/
+financial_statements/
+metadata.json
+
+# Submission ZIPs & Output JSON artifacts
+*.zip
+submission*.json
+prediction_result*/
+scoring_result*/
+temp_*
+errors.log

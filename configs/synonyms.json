@@ -1,0 +1,659 @@
+{
+  "HPG": [
+    "HPG",
+    "ctcp tập đoàn hòa phát",
+    "gang thép hòa phát",
+    "hoa phat",
+    "hpg",
+    "hòa phát"
+  ],
+  "VCB": [
+    "VCB",
+    "ngoai thuong",
+    "ngoại thương việt nam",
+    "ngân hàng tmcp ngoại thương việt nam",
+    "vcb",
+    "vietcombank"
+  ],
+  "MBB": [
+    "MBB",
+    "mb bank",
+    "mbb",
+    "mbbank",
+    "ngân hàng tmcp quân đội",
+    "quân đội"
+  ],
+  "VPB": [
+    "VPB",
+    "ngân hàng tmcp việt nam thịnh vượng",
+    "việt nam thịnh vượng",
+    "vp bank",
+    "vpb",
+    "vpbank"
+  ],
+  "CTG": [
+    "CTG",
+    "ctg",
+    "công thương việt nam",
+    "ngân hàng tmcp công thương việt nam",
+    "vietinbank"
+  ],
+  "VIC": [
+    "VIC",
+    "tập đoàn vingroup - ctcp",
+    "vic",
+    "vin group",
+    "vingroup"
+  ],
+  "BID": [
+    "BID",
+    "bid",
+    "bidv",
+    "ngân hàng tmcp đầu tư và phát triển việt nam",
+    "đầu tư và phát triển việt nam"
+  ],
+  "ACB": [
+    "ACB",
+    "a chau",
+    "acb",
+    "ngân hàng tmcp á châu",
+    "á châu"
+  ],
+  "BSR": [
+    "-  lọc hóa dầu việt nam",
+    "- tổng công ty lọc hóa dầu việt nam",
+    "BSR",
+    "bsr",
+    "bình sơn",
+    "ctcp - tổng công ty lọc hóa dầu việt nam",
+    "lọc hóa dầu bình sơn"
+  ],
+  "HDB": [
+    "HDB",
+    "hdb",
+    "hdbank",
+    "ngân hàng tmcp phát triển thành phố hồ chí minh",
+    "phát triển thành phố hồ chí minh"
+  ],
+  "SHB": [
+    "SHB",
+    "ngân hàng tmcp sài gòn - hà nội",
+    "shb",
+    "sài gòn - hà nội"
+  ],
+  "GVR": [
+    "GVR",
+    "cao su việt nam",
+    "công nghiệp cao su việt nam",
+    "gvr",
+    "tập đoàn công nghiệp cao su việt nam - ctcp"
+  ],
+  "ACV": [
+    "ACV",
+    "acv",
+    "cảng hàng không việt nam",
+    "tổng công ty cảng hàng không việt nam - ctcp"
+  ],
+  "SSB": [
+    "SSB",
+    "ngân hàng tmcp đông nam á",
+    "ssb",
+    "đông nam á"
+  ],
+  "VIB": [
+    "VIB",
+    "ngân hàng tmcp quốc tế việt nam",
+    "quốc tế việt nam",
+    "vib"
+  ],
+  "MSB": [
+    "MSB",
+    "hàng hải việt nam",
+    "msb",
+    "msbbank",
+    "ngân hàng tmcp hàng hải việt nam"
+  ],
+  "POW": [
+    "POW",
+    "pow",
+    "pv power",
+    "tổng công ty điện lực dầu khí việt nam - ctcp",
+    "điện lực dầu khí việt nam"
+  ],
+  "OCB": [
+    "OCB",
+    "ngân hàng tmcp phương đông",
+    "ocb",
+    "phương đông"
+  ],
+  "SSI": [
+    "SSI",
+    "chứng khoán ssi",
+    "ctcp chứng khoán ssi",
+    "ssi"
+  ],
+  "GAS": [
+    "GAS",
+    "gas",
+    "khí việt nam",
+    "pv gas",
+    "tổng công ty khí việt nam - ctcp"
+  ],
+  "NVL": [
+    "NVL",
+    "ctcp tập đoàn đầu tư địa ốc no va",
+    "novaland",
+    "novanland",
+    "nvl",
+    "đầu tư địa ốc no va"
+  ],
+  "VRE": [
+    "VRE",
+    "ctcp vincom retail",
+    "vincom",
+    "vincom retail",
+    "vre"
+  ],
+  "VNM": [
+    "VNM",
+    "ctcp sữa việt nam",
+    "sữa việt nam",
+    "vinamilk",
+    "vnm"
+  ],
+  "NAB": [
+    "NAB",
+    "nab",
+    "nam á",
+    "ngân hàng tmcp nam á"
+  ],
+  "NVB": [
+    "NVB",
+    "ngân hàng tmcp quốc dân",
+    "nvb",
+    "quốc dân"
+  ],
+  "STB": [
+    "STB",
+    "ngân hàng tmcp sài gòn tài lộc",
+    "sacombank",
+    "stb",
+    "sài gòn thương tín",
+    "sài gòn tài lộc"
+  ],
+  "EIB": [
+    "EIB",
+    "eib",
+    "eximbank",
+    "ngân hàng tmcp xuất nhập khẩu việt nam",
+    "xuất nhập khẩu việt nam"
+  ],
+  "FPT": [
+    "FPT",
+    "ctcp fpt",
+    "fpt",
+    "fpt retail",
+    "fpt software"
+  ],
+  "MWG": [
+    "MWG",
+    "ctcp đầu tư thế giới di động",
+    "mwg",
+    "thegioididong",
+    "thế giới di động",
+    "đầu tư thế giới di động"
+  ],
+  "MSN": [
+    "MSN",
+    "ctcp tập đoàn masan",
+    "masan",
+    "masan group",
+    "msn"
+  ],
+  "ABB": [
+    "ABB",
+    "abb",
+    "an bình",
+    "ngân hàng tmcp an bình"
+  ],
+  "GEX": [
+    "GEX",
+    "ctcp tập đoàn gelex",
+    "gelex",
+    "gex"
+  ],
+  "MCH": [
+    "MCH",
+    "ctcp hàng tiêu dùng masan",
+    "hàng tiêu dùng masan",
+    "mch"
+  ],
+  "PLX": [
+    "PLX",
+    "petrolimex",
+    "plx",
+    "tập đoàn xăng dầu việt nam",
+    "xăng dầu việt nam"
+  ],
+  "SAB": [
+    "SAB",
+    "bia - rượu - nước giải khát sài gòn",
+    "sab",
+    "sabeco",
+    "tổng công ty cổ phần bia - rượu - nước giải khát sài gòn"
+  ],
+  "DXG": [
+    "DXG",
+    "bluemarq group",
+    "ctcp bluemarq group",
+    "dxg",
+    "đất xanh"
+  ],
+  "HAG": [
+    "HAG",
+    "ctcp hoàng anh gia lai",
+    "hag",
+    "hoàng anh gia lai"
+  ],
+  "HNG": [
+    "HNG",
+    "ctcp nông nghiệp quốc tế hoàng anh gia lai",
+    "hng",
+    "nông nghiệp quốc tế hoàng anh gia lai"
+  ],
+  "MSR": [
+    "MSR",
+    "ctcp masan high-tech materials",
+    "masan high-tech materials",
+    "msr"
+  ],
+  "BAB": [
+    "BAB",
+    "bab",
+    "bắc á",
+    "ngân hàng tmcp bắc á"
+  ],
+  "HUT": [
+    "HUT",
+    "ctcp tasco",
+    "hut",
+    "tasco"
+  ],
+  "MBS": [
+    "MBS",
+    "chứng khoán mb",
+    "ctcp chứng khoán mb",
+    "mbs"
+  ],
+  "PDR": [
+    "PDR",
+    "ctcp phát triển bất động sản phát đạt",
+    "pdr",
+    "phát triển bất động sản phát đạt",
+    "phát đạt"
+  ],
+  "KBC": [
+    "KBC",
+    "kbc",
+    "kinh bắc",
+    "phát triển đô thị kinh bắc",
+    "tổng công ty phát triển đô thị kinh bắc - ctcp",
+    "đô thị kinh bắc"
+  ],
+  "VAB": [
+    "VAB",
+    "ngân hàng tmcp việt á",
+    "vab",
+    "việt á"
+  ],
+  "HSG": [
+    "HSG",
+    "ctcp tập đoàn hoa sen",
+    "hoa sen",
+    "hsg",
+    "tôn hoa sen"
+  ],
+  "DIG": [
+    "DIG",
+    "dig",
+    "tổng công ty cổ phần đầu tư phát triển xây dựng",
+    "đầu tư phát triển xây dựng"
+  ],
+  "VJC": [
+    "VJC",
+    "ctcp hàng không vietjet",
+    "hàng không vietjet",
+    "vietjet",
+    "vietjet air",
+    "vjc"
+  ],
+  "EVF": [
+    "EVF",
+    "công ty tài chính tổng hợp cổ phần điện lực",
+    "evf"
+  ],
+  "BVH": [
+    "BVH",
+    "bvh",
+    "bảo việt",
+    "tập đoàn bảo việt"
+  ],
+  "FOX": [
+    "FOX",
+    "ctcp viễn thông fpt",
+    "fox",
+    "viễn thông fpt"
+  ],
+  "DTK": [
+    "DTK",
+    "dtk",
+    "tổng công ty điện lực tkv - ctcp",
+    "điện lực tkv"
+  ],
+  "DPM": [
+    "DPM",
+    "dpm",
+    "đạm phú mỹ",
+    "dam phu my",
+    "phân bón và hóa chất dầu khí",
+    "tổng công ty phân bón và hóa chất dầu khí - ctcp"
+  ],
+  "GEE": [
+    "GEE",
+    "ctcp điện lực gelex",
+    "gee",
+    "điện lực gelex"
+  ],
+  "IJC": [
+    "IJC",
+    "ctcp phát triển hạ tầng kỹ thuật",
+    "ijc",
+    "phát triển hạ tầng kỹ thuật"
+  ],
+  "KLB": [
+    "KLB",
+    "kiên long",
+    "klb",
+    "ngân hàng tmcp kiên long"
+  ],
+  "DXS": [
+    "DXS",
+    "ctcp dịch vụ bất động sản đất xanh",
+    "dxs",
+    "dịch vụ bất động sản đất xanh"
+  ],
+  "CEO": [
+    "CEO",
+    "c.e.o",
+    "ceo",
+    "ceo group",
+    "ctcp tập đoàn c.e.o"
+  ],
+  "HHV": [
+    "HHV",
+    "ctcp đầu tư hạ tầng giao thông đèo cả",
+    "hhv",
+    "đầu tư hạ tầng giao thông đèo cả"
+  ],
+  "DCM": [
+    "tổng công ty phân bón dầu khí cà mau",
+    "DCM",
+    "ctcp - tổng công ty phân bón dầu khí cà mau",
+    "đạm cà mau",
+    "dam ca mau",
+    "dcm"
+  ],
+  "PNJ": [
+    "PNJ",
+    "ctcp vàng bạc đá quý phú nhuận",
+    "phú nhuận",
+    "pnj",
+    "vàng bạc đá quý phú nhuận"
+  ],
+  "HND": [
+    "HND",
+    "ctcp nhiệt điện hải phòng",
+    "hnd",
+    "nhiệt điện hải phòng"
+  ],
+  "VGT": [
+    "VGT",
+    "dệt may việt nam",
+    "tập đoàn dệt may việt nam",
+    "vgt"
+  ],
+  "VSF": [
+    "VSF",
+    "lương thực miền nam",
+    "tổng công ty lương thực miền nam - ctcp",
+    "vsf"
+  ],
+  "NKG": [
+    "NKG",
+    "ctcp thép nam kim",
+    "nam kim",
+    "nkg",
+    "thép nam kim",
+    "tôn nam kim"
+  ],
+  "NLG": [
+    "NLG",
+    "ctcp đầu tư nam long",
+    "nam long",
+    "nlg",
+    "đầu tư nam long"
+  ],
+  "PVT": [
+    "PVT",
+    "pvt",
+    "tổng công ty cổ phần vận tải dầu khí",
+    "vận tải dầu khí"
+  ],
+  "CRE": [
+    "CRE",
+    "bất động sản thế kỷ",
+    "cre",
+    "ctcp bất động sản thế kỷ"
+  ],
+  "SJG": [
+    "SJG",
+    "sjg",
+    "sông đà",
+    "tổng công ty sông đà - ctcp"
+  ],
+  "KHG": [
+    "KHG",
+    "ctcp tập đoàn khải hoàn land",
+    "khg",
+    "khải hoàn land"
+  ],
+  "VGC": [
+    "VGC",
+    "tổng công ty viglacera - ctcp",
+    "vgc",
+    "viglacera"
+  ],
+  "HHS": [
+    "HHS",
+    "ctcp đầu tư dịch vụ hoàng huy",
+    "hhs",
+    "đầu tư dịch vụ hoàng huy"
+  ],
+  "DBC": [
+    "DBC",
+    "ctcp tập đoàn dabaco việt nam",
+    "dabaco việt nam",
+    "dbc"
+  ],
+  "SCR": [
+    "SCR",
+    "ctcp địa ốc sài gòn thương tín",
+    "scr",
+    "địa ốc sài gòn thương tín"
+  ],
+  "DNH": [
+    "DNH",
+    "ctcp thủy điện đa nhim - hàm thuận - đa mi",
+    "dnh",
+    "thủy điện đa nhim - hàm thuận - đa mi"
+  ],
+  "PC1": [
+    "PC1",
+    "ctcp tập đoàn pc1",
+    "pc1"
+  ],
+  "ASM": [
+    "ASM",
+    "asm",
+    "ctcp tập đoàn sao mai",
+    "sao mai"
+  ],
+  "HDG": [
+    "HDG",
+    "ctcp tập đoàn hà đô",
+    "hdg",
+    "hà đô"
+  ],
+  "SAM": [
+    "SAM",
+    "ctcp sam holdings",
+    "sam",
+    "sam holdings"
+  ],
+  "MPC": [
+    "MPC",
+    "ctcp tập đoàn thủy sản minh phú",
+    "mpc",
+    "thủy sản minh phú"
+  ],
+  "AAA": [
+    "AAA",
+    "aaa",
+    "ctcp nhựa an phát xanh",
+    "nhựa an phát xanh",
+    "an phát",
+    "anphát",
+    "anphat plastic",
+    "công ty cổ phần nhựa và môi trường xanh an phát",
+    "bctc riêng aaa",
+    "công ty mẹ aaa",
+    "nhựa thakhek",
+    "thakhek",
+    "công ty tnhh nhựa thakhek",
+    "chi nhánh hải dương"
+  ],
+  "TTF": [
+    "TTF",
+    "ctcp tập đoàn kỹ nghệ gỗ trường thành",
+    "kỹ nghệ gỗ trường thành",
+    "ttf"
+  ],
+  "HT1": [
+    "HT1",
+    "ctcp xi măng vicem hà tiên",
+    "ht1",
+    "xi măng vicem hà tiên"
+  ],
+  "FTS": [
+    "FTS",
+    "chứng khoán fpt",
+    "ctcp chứng khoán fpt",
+    "fts"
+  ],
+  "SNZ": [
+    "SNZ",
+    "phát triển khu công nghiệp",
+    "snz",
+    "tổng công ty cổ phần phát triển khu công nghiệp"
+  ],
+  "GEG": [
+    "GEG",
+    "ctcp điện gia lai",
+    "geg",
+    "điện gia lai"
+  ],
+  "SSH": [
+    "SSH",
+    "ctcp phát triển sunshine homes",
+    "phát triển sunshine homes",
+    "ssh"
+  ],
+  "VSC": [
+    "VSC",
+    "container việt nam",
+    "ctcp container việt nam",
+    "vsc"
+  ],
+  "QNS": [
+    "QNS",
+    "ctcp đường quảng ngãi",
+    "qns",
+    "đường quảng ngãi"
+  ],
+  "BAF": [
+    "BAF",
+    "baf",
+    "ctcp nông nghiệp baf việt nam",
+    "nông nghiệp baf việt nam"
+  ],
+  "SGB": [
+    "SGB",
+    "ngân hàng tmcp sài gòn công thương",
+    "sgb",
+    "sài gòn công thương"
+  ],
+  "VIF": [
+    "VIF",
+    "lâm nghiệp việt nam",
+    "tổng công ty lâm nghiệp việt nam - ctcp",
+    "vif"
+  ],
+  "HBC": [
+    "HBC",
+    "ctcp tập đoàn xây dựng hòa bình",
+    "hbc",
+    "xây dựng hòa bình"
+  ],
+  "MML": [
+    "MML",
+    "ctcp masan meatlife",
+    "masan meatlife",
+    "mml"
+  ],
+  "FIT": [
+    "FIT",
+    "ctcp tập đoàn f.i.t",
+    "f.i.t",
+    "fit"
+  ],
+  "VPI": [
+    "VPI",
+    "ctcp phát triển bất động sản văn phú",
+    "phát triển bất động sản văn phú",
+    "vpi"
+  ],
+  "HPX": [
+    "HPX",
+    "ctcp đầu tư hải phát",
+    "hpx",
+    "đầu tư hải phát"
+  ],
+  "OGC": [
+    "OGC",
+    "ctcp tập đoàn đại dương",
+    "ogc",
+    "đại dương"
+  ],
+  "PRT": [
+    "PRT",
+    "prt",
+    "sản xuất - xuất nhập khẩu bình dương",
+    "tổng công ty sản xuất - xuất nhập khẩu bình dương - ctcp"
+  ],
+  "DLG": [
+    "DLG",
+    "ctcp tập đoàn đức long gia lai",
+    "dlg",
+    "đức long gia lai"
+  ]
+}
