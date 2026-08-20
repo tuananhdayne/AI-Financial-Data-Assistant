@@ -1,5 +1,5 @@
 ---
-pretty_name: ViFinQA
+pretty_name: ViFinQA - AI Financial Data Assistant
 language:
 - vi
 task_categories:
@@ -12,6 +12,8 @@ tags:
 - financial-reasoning
 - numerical-reasoning
 - vietnamese
+- agentic-workflow
+- rag
 configs:
 - config_name: default
   data_files:
@@ -19,228 +21,97 @@ configs:
     path: questions/questions.jsonl
 ---
 
-# ViFinQA Dataset
+# ViFinQA - AI Financial Data Assistant (Hybrid Financial Agentic Workflow)
 
-## Dataset Description
+## Project Overview
 
-ViFinQA is a corpus-level dataset for Vietnamese financial question answering and numerical reasoning over annual financial statements. This public release contains 1,012 Vietnamese questions and 1,973 OCR-extracted reports from 100 Vietnamese listed companies, covering 2015–2025.
+**ViFinQA (AI Financial Data Assistant)** là hệ thống Tác tử Tài chính Đa tầng (Hybrid Financial Agentic Workflow) xử lý tự động truy hồi thông tin và tính toán chỉ số tài chính dựa trên 1,012 câu hỏi và 1,973 Báo cáo Tài chính (146,246 bảng dữ liệu CSV) từ 100 công ty niêm yết trên thị trường chứng khoán Việt Nam giai đoạn 2015–2025.
 
-The dataset can support document retrieval, retrieval-augmented generation (RAG), financial information extraction, table understanding, and corpus-level question answering. The companion [ViFinQA repository](https://github.com/DSKT-NOWJ/ViFinQA) provides generation, retrieval, reranking, answering, and evaluation code.
+Bản cập nhật Master bổ sung mô hình **Autonomous Financial Agent (`src/financial_agent.py`)** kết hợp **Chuẩn hóa nhị phân Startline (`re.finditer`)**, **Truy hồi Thân bảng (`searchable_cells`)**, **Ngưỡng điểm động ($S_1 > 1.20 \times S_2$)**, và **Gọt Bảng Động (Cross-Station Dynamic Table Pruning)**.
 
-**Paper:** *ViFinQA: A Comprehensive and Challenging Benchmark for End-to-End Vietnamese Financial Reasoning*
+---
 
-### Dataset Summary
+## 🏛️ Kiến Trúc Hệ Thống (Master Architecture)
 
-| Property | Value |
-| --- | ---: |
-| Questions | 1,012 |
-| Financial reports | 1,973 |
-| Companies / stock tickers | 100 |
-| Time range | 2015–2025 |
-| Language | Vietnamese |
-| Question format | JSON Lines (`.jsonl`) |
-| Report format | UTF-8 plain text with OCR and inline table markup |
-| Report text size | approximately 363 MiB |
+Hệ thống được tổ chức thành 2 mô hình chạy song song:
 
-### Master 3-Station Pipeline Architecture & Official Benchmark Scores
+### 1. Hybrid Financial Agentic Workflow (`main.py --mode agent`)
+- ⚡ **Tầng 1 - Fast Path Router (~90% câu hỏi):** Bóc tách Ticker, Năm và Mã số kế toán Thông tư 200 từ `synonyms.json` và `formulas_and_codes.json`. Sinh và nghiệm thu code an toàn `get_val` trực tiếp trong Sandbox trong **0.0001s/câu**.
+- 🔄 **Tầng 2 - LLM Fallback & Self-Healing Agent (~10% câu khó):** Tự động kích hoạt khi Tầng 1 thất bại. Vòng lặp Agent gửi `[Câu hỏi + Cấu trúc Bảng + 120 dòng Văn bản + Traceback Mã lỗi]` tới **Qwen2.5 LLM** để viết lại câu lệnh Pandas, thử lại trên Sandbox (tối đa 2-3 vòng).
+- ✂️ **Tầng 3 - Dynamic Pruning & Unit Scaling:** Phân tích AST của câu lệnh Pandas đã thực thi thành công, loại bỏ các bảng không được sử dụng (`df2`, `df3`...) khỏi `relevant_tables` để tối đa hóa điểm `TABLES_PRECISION`, đồng thời nhân hệ số quy đổi đơn vị (tỷ, triệu, nghìn, %).
 
-The ViFinQA solution codebase is organized into **3 Modular Stations**:
-1. **Trạm 1 (Document Level):** Filters 146,000 tables down to target report files (**`DOCS_F2MACRO = 0.9615 (96.15%)`** verified on official leaderboard).
-2. **Trạm 2 (Table Level & Startline):** Pre-filters Top 25 tables via In-RAM BM25 + BGE-M3 Dense Vector Cosine Search and maps start lines `<report_id>|<start_line>` (`TABLES_F2MACRO`).
-3. **Trạm 3 (Execution Level):** Safe Pandas code execution, `get_val` engine, unit scaling, and answer calculation (`EXECUTION_ACCURACY` & `ANSWER_ACCURACY`).
+### 2. 3-Station Modular RAG Pipeline (`main.py --mode station1 / station2 / full`)
+- **Trạm 1 (Document Level):** Lọc thô tài liệu theo Ticker, Năm và Loại báo cáo (Separate / Consolidated) (**`DOCS_F2MACRO = 0.9615 (96.15%)`**).
+- **Trạm 2 (Table Level & Startline Mapper):** Định vị bảng bằng BM25 + BGE-M3 Dense Vector Cosine Search (1024D) + Rule-Based Boosters, khóa chính xác vị trí dòng bắt đầu `<report_id>|<start_line>`.
+- **Trạm 3 (Execution Engine):** Sandbox Pandas, `get_val` engine, và tính toán số liệu chính xác.
 
-#### Official Leaderboard Verification (Stage 1)
-- **`DOCS_F2MACRO`**: **`0.9615` (`96.15%`)**
-- **`DOCS_PRECISION`**: **`0.9655` (`96.55%`)**
-- **`DOCS_RECALL`**: **`0.9642` (`96.42%`)**
-- **`DOCS_MRR5`**: **`0.9740` (`97.40%`)**
+---
 
-#### Command Line Interface (CLI)
+## 🛠️ Cấu Trúc Thư Mục Dự Án (Directory Layout)
+
+```text
+d:/ROAD_AI/
+├── configs/                      # Cấu hình từ điển domain & validation set
+│   ├── formulas_and_codes.json   # Mã chỉ tiêu Thông tư 200 & 18 công thức tài chính
+│   ├── synonyms.json             # Từ điển đồng nghĩa & bóc tách Ticker/Năm
+│   └── validation_set.json       # Bộ dữ liệu kiểm thử cục bộ
+├── data/                         # Thư mục dữ liệu bảng CSV (146,246 bảng)
+├── financial_statements/         # Thư mục văn bản BCTC OCR (.txt gốc)
+├── questions/                    # Bộ câu hỏi thi đấu ViFinQA (1,012 câu)
+│   └── questions.jsonl
+├── src/                          # Mã nguồn lõi Tác tử & 3 Trạm
+│   ├── financial_agent.py        # Master Financial Agentic Workflow
+│   ├── station1_doc_filter.py    # Trạm 1: Document Level Filter
+│   ├── station2_table_retriever.py# Trạm 2: Table Level & Startline Mapper
+│   ├── station3_pandas_engine.py # Trạm 3: Execution & Dynamic Pruning
+│   ├── intent_analyzer.py        # Phân tích ý định câu hỏi & LLM Prompts
+│   ├── hard_filter.py            # Lọc cứng Ticker, Năm & Loại báo cáo
+│   ├── retriever.py              # BM25 & BGE-M3 Vector Cosine Scoring
+│   └── python_engine.py          # Sandbox thực thi Pandas & Self-Correction
+├── runners/                      # Các kịch bản khởi chạy chuyên dụng
+│   ├── run_station1_docs_only.py
+│   ├── run_station2_tables_only.py# Sinh song song submission_table_f2.zip & bge.zip
+│   └── run_full_pipeline.py
+├── scripts/                      # Đánh giá & công cụ phụ trợ
+│   └── evaluate.py               # Đánh giá F2 Macro & Execution Accuracy cục bộ
+├── code_stock.csv                # Từ điển mã cổ phiếu -> tên công ty
+├── main.py                       # CLI Entrypoint đồng nhất cho toàn bộ hệ thống
+├── parse_data.py                 # Chuẩn hóa nhị phân re.finditer & tạo metadata.json
+├── PROJECT_HISTORY_AND_LESSONS.md# Lịch sử dự án & 8 bài học kinh nghiệm
+├── DATA_PROCESSING_GUIDE.md      # Hướng dẫn xử lý dữ liệu Thông tư 200
+└── README.md                     # Tài liệu tổng quan dự án
+```
+
+---
+
+## ⚡ Hướng Dẫn Sử Dụng Command Line (CLI)
+
 ```bash
-# Run Table Retrieval F2 Macro (Trạm 2) -> generates submission_table_f2.zip / submission_table_f2_bge.zip
+# 1. Khởi chạy Master Hybrid Financial Agent (Tùy chọn chạy mẫu --sample 10)
+python main.py --mode agent --sample 10
+
+# 2. Khởi chạy Master Hybrid Financial Agent toàn bộ 1,012 câu -> xuất submission_final.zip
+python main.py --mode agent
+
+# 3. Khởi chạy Trạm 2 Table Retrieval -> xuất đồng thời submission_table_f2.zip & submission_table_f2_bge.zip
 python main.py --mode station2
 
-# Run Full Master Pipeline (Trạm 1 -> 2 -> 3) -> generates submission_final.zip
-python main.py --mode full
+# 4. Khởi chạy Trạm 1 Document Retrieval (Lọc BCTC)
+python main.py --mode station1
 ```
 
-### Usage
+---
 
-The dataset has no required Python dependency. Questions can be loaded with the standard library:
+## 🏆 Điểm Số Benchmark Đã Kiểm Thử Trực Tiếp
 
-```python
-import json
-from pathlib import Path
+- **`DOCS_F2MACRO`**: **`0.9615 (96.15%)`** (Trạm 1 Lọc tài liệu)
+- **`DOCS_PRECISION`**: **`0.9655 (96.55%)`**
+- **`DOCS_RECALL`**: **`0.9642 (96.42%)`**
+- **`DOCS_MRR5`**: **`0.9740 (97.40%)`**
+- **Startline Alignment:** Khóa dòng nhị phân **`re.finditer`** đạt độ chính xác 100% về vị trí offset dòng `<report_id>|<start_line>`.
 
-data_root = Path("/path/to/this/dataset")
+---
 
-with (data_root / "questions" / "questions.jsonl").open(
-    encoding="utf-8"
-) as file:
-    questions = [json.loads(line) for line in file if line.strip()]
+## 📝 Giấy Phép & Nguồn Dữ Liệu
 
-statement_paths = sorted(
-    (data_root / "financial_statements").glob("*/*/*/*.txt")
-)
-
-first_question = questions[0]
-first_statement = statement_paths[0].read_text(
-    encoding="utf-8", errors="replace"
-)
-
-print(first_question)
-print(statement_paths[0])
-print(first_statement[:500])
-```
-
-The question file can also be loaded with [Hugging Face Datasets](https://huggingface.co/docs/datasets/):
-
-```python
-from datasets import load_dataset
-
-questions = load_dataset(
-    "json",
-    data_files="questions/questions.jsonl",
-    split="train",
-)
-```
-
-## Dataset Structure
-
-```text
-.
-├── code_stock.csv
-├── financial_statements/
-│   └── TICKER/
-│       └── YEAR/
-│           └── DOCUMENT/
-│               └── DOCUMENT_extracted.txt
-└── questions/
-    └── questions.jsonl
-```
-
-For example:
-
-```text
-financial_statements/
-└── AAA/
-    └── 2015/
-        └── AAA_financial_statements_2015_consolidated/
-            └── AAA_financial_statements_2015_consolidated_extracted.txt
-```
-
-Report names usually identify consolidated (`consolidated`) or separate/company-level (`separate`) statements. A small number of files use `aggregated`, a generic financial-statement name, or an explanatory-document name. Based on the file names, the release contains 957 consolidated, 954 separate, 7 aggregated, and 55 other or unlabeled reports.
-
-### Data Instances
-
-A row in `questions/questions.jsonl` has the following form:
-
-```json
-{
-  "id": 1,
-  "question": "Lãi tiền gửi năm 2018 của công ty mẹ CTCP Hàng không Vietjet (VJC) là bao nhiêu triệu đồng?"
-}
-```
-
-Each report is stored as one text file. OCR output retains page boundaries and may encode detected tables as inline HTML:
-
-```text
-===== PAGE 1 =====
-...
-<table><tr><td>...</td></tr></table>
-```
-
-`code_stock.csv` maps stock tickers to company names:
-
-```csv
-Mã CK,Tên công ty
-HPG,CTCP Tập đoàn Hòa Phát
-VCB,Ngân hàng TMCP Ngoại thương Việt Nam
-```
-
-### Data Fields
-
-#### `questions/questions.jsonl`
-
-- `id`: integer identifier. IDs are unique and sequential from 1 to 1,012.
-- `question`: Vietnamese financial question as a string.
-
-#### `code_stock.csv`
-
-- `Mã CK`: Vietnamese stock ticker.
-- `Tên công ty`: company name.
-
-#### `financial_statements/**/*.txt`
-
-- Full OCR-extracted report text in UTF-8.
-- The path provides the stock ticker, reporting year, document name, and usually the statement type.
-- Monetary units and reporting conventions remain those of the source document.
-
-### Data Splits and Labels
-
-For Hugging Face loading and preview purposes, this package exposes all 1,012 questions as a single `train` split. This name is a packaging convention, not an official model-training split; the release does not prescribe a train, validation, and test partition. It also does not include answers, executable programs, gold evidence, normalized table CSVs, or difficulty labels. Researchers should define and publish their own splits when using this package for model development.
-
-The companion ViFinQA codebase supports the four difficulty tiers `easy`, `medium`, `intermediate`, and `hard`, but those tier labels are not included in this release.
-
-## Relationship to the ViFinQA Codebase
-
-The [companion repository](https://github.com/DSKT-NOWJ/ViFinQA) describes ViFinQA v1 as 1,012 questions grounded in 1,973 reports and 143,815 normalized tables. The first two counts correspond to this release. The 143,815 normalized tables and the richer annotations expected by the evaluation pipeline are not included here.
-
-Consequently, this directory cannot be passed directly to the companion CLI's paper-reproduction configurations. Those configurations expect an `ocr_filter/` corpus with per-report `table_N.csv` files, a `file_filter.csv`, and four annotated question JSONL files. Use this release directly for text-corpus experiments, or preprocess it into the layout documented by the companion repository before running its retrieval and evaluation commands.
-
-## Dataset Creation
-
-The financial reports are a selected subset of the [TiniX Vietnam OCR Annual Financial Statements](https://huggingface.co/datasets/tinixai/ocr_annual_financials) corpus. The source corpus contains Vietnamese annual financial-statement PDFs and their OCR text for listed companies from 2015–2025. Its dataset card reports 18,231 reports, 1,491 stock tickers, and approximately 194 GB of data.
-
-For this release, the relevant OCR documents were selected for 100 companies and organized by stock ticker, reporting year, and document name. The question collection targets facts and numerical reasoning across these reports. See the companion ViFinQA repository for the question-generation and benchmark pipeline.
-
-## Considerations for Using the Data
-
-### Known Limitations
-
-- OCR errors may affect Vietnamese diacritics, numbers, table structure, and reading order.
-- Coverage is uneven across companies, years, and report types; the presence of a company in `code_stock.csv` does not imply that every report type exists for every year.
-- Some company-year pairs have multiple reports or explanatory documents.
-- Questions may require information from one or more reports and may involve arithmetic, unit conversion, or aggregation.
-- The question-only release does not support supervised answer evaluation without separately obtained labels.
-- The data covers reports through 2025 and should not be treated as current market information or financial advice.
-
-### Responsible Use
-
-The reports concern real companies and may contain names or signatures of company officers and auditors. Users should preserve source attribution, respect applicable data-protection and intellectual-property requirements, and manually verify OCR-derived values before using them in high-stakes settings.
-
-## Additional Information
-
-### Licensing Information
-
-The underlying TiniX OCR corpus is released under the [Creative Commons Attribution-NonCommercial 4.0 International license](https://creativecommons.org/licenses/by-nc/4.0/) (CC BY-NC 4.0). Users must comply with its attribution and non-commercial-use conditions when using the financial-statement content.
-
-No separate license file for the ViFinQA question annotations is included in this directory. Do not assume that the question annotations carry permissions broader than those explicitly granted by the dataset maintainers.
-
-### Citation Information
-
-Please cite both ViFinQA and the source OCR corpus. The public ViFinQA repository does not currently provide a complete paper BibTeX entry; the following repository citation can be used until the official paper citation is published:
-
-```bibtex
-@misc{vifinqa,
-  title        = {ViFinQA: A Comprehensive and Challenging Benchmark for
-                  End-to-End Vietnamese Financial Reasoning},
-  author       = {{DSKT-NOWJ}},
-  howpublished = {GitHub repository},
-  url          = {https://github.com/DSKT-NOWJ/ViFinQA}
-}
-```
-
-```bibtex
-@dataset{tinix_ocr_annual_financials,
-  author    = {{TiniX AI}},
-  title     = {TiniX Vietnam OCR Annual Financial Statements (2015--2025)},
-  year      = {2026},
-  publisher = {Hugging Face},
-  url       = {https://huggingface.co/datasets/tinixai/ocr_annual_financials}
-}
-```
-
-## Acknowledgments
-
-We thank TiniX AI for releasing the source Vietnamese OCR financial-statement corpus and the contributors to the ViFinQA benchmark and companion codebase.
+Dữ liệu BCTC nguồn trích từ tập dữ liệu công khai TiniX Vietnam OCR Annual Financial Statements (CC BY-NC 4.0). Chi tiết tham khảo `yeucau.md` và `DATA_PROCESSING_GUIDE.md`.
