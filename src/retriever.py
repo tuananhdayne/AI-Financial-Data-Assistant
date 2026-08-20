@@ -233,7 +233,8 @@ def get_table_memory_text(c):
     preview_val = c.get("preview", "")
     preview = " ".join([str(p) for p in preview_val]) if isinstance(preview_val, list) else str(preview_val)
     item_col = str(c.get("item_col_text", ""))
-    return (ctx + " " + headers + " " + preview + " " + item_col).strip()
+    t_type = str(c.get("table_type", ""))
+    return (f"Loại bảng: {t_type} | Ngữ cảnh: {ctx} | Cột: {headers} | Mẫu: {preview} | Chỉ tiêu: {item_col}").strip()
 
 def retrieve_relevant_tables(target_desc, candidates, top_n=2):
     """
@@ -263,12 +264,13 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         preview_val = c.get("preview", "")
         preview_str = " ".join([str(p) for p in preview_val]) if isinstance(preview_val, list) else str(preview_val)
         ctx_str = str(c.get("table_context", ""))
-        doc_text_low = (ctx_str + " " + headers_str + " " + preview_str).lower()
+        item_str = str(c.get("item_col_text", ""))
+        doc_text_low = (ctx_str + " " + headers_str + " " + preview_str + " " + item_str).lower()
         
-        score = sum(3.0 if t in ctx_str.lower() else (2.0 if t in headers_str.lower() else 1.0) for t in q_tokens if t in doc_text_low)
+        score = sum(3.0 if t in ctx_str.lower() else (2.0 if t in headers_str.lower() else (1.5 if t in item_str.lower() else 1.0)) for t in q_tokens if t in doc_text_low)
         bm25_scores.append(score)
         
-        summary_text = f"Báo cáo: {c.get('report_id', '')} | Loại: {c.get('table_type', '')} | Ngữ cảnh: {ctx_str} | Tiêu đề: {headers_str} | Dữ liệu mẫu: {preview_str[:150]}"
+        summary_text = f"Báo cáo: {c.get('report_id', '')} | Loại: {c.get('table_type', '')} | Ngữ cảnh: {ctx_str} | Tiêu đề: {headers_str} | Chỉ tiêu: {item_str[:150]}"
         summary_docs.append(summary_text)
         
     # 2. FIRST-STAGE RETRIEVAL: Evaluate Domain Rules on ALL Candidates (~50-300 tables in RAM, 0.001s)
@@ -312,15 +314,15 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         for topic_name, topic_data in topic_map.items():
             if any(kw in q_lower or any(kw in m for m in metrics_lower) for kw in topic_data["keywords"]):
                 if any(note_kw in table_ctx for note_kw in topic_data["notes"]):
-                    score += 15.0
+                    score += 25.0
                     break
 
         # Rule 1: Income Statement Question (STATEMENT_IS)
         is_is_q = any(kw in q_lower or any(kw in m for m in metrics_lower) for kw in [
             'doanh thu thuần', 'lợi nhuận sau thuế', 'lợi nhuận gộp', 'giá vốn hàng bán',
             'chi phí tài chính', 'chi phí bán hàng', 'chi phí quản lý doanh nghiệp',
-            'lợi nhuận trước thuế', 'thu nhập khác', 'lãi cơ bản trên cổ phiếu', 'eps'
-        ]) and not any(sub in q_lower for sub in ['lãi tiền gửi', 'chi tiết', 'thuyết minh', 'bảng cân đối'])
+            'lợi nhuận trước thuế', 'lãi cơ bản trên cổ phiếu', 'eps'
+        ]) and not any(sub in q_lower for sub in ['lãi tiền gửi', 'chi tiết', 'thuyết minh', 'chi phí khác', 'thu nhập khác'])
 
         # Rule 2: Balance Sheet Question (STATEMENT_BS)
         is_bs_q = any(kw in q_lower or any(kw in m for m in metrics_lower) for kw in [
@@ -337,7 +339,7 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         # Rule 4: Note / Detail Question (STATEMENT_NOTE)
         is_note_q = any(kw in q_lower or any(kw in m for m in metrics_lower) for kw in [
             'lãi tiền gửi', 'tiền gửi tại', 'chi phí phạt', 'hạn mức vay', 'tài sản thế chấp', 
-            'dự phòng nợ xấu', 'chi tiết vay', 'tiểu mục', 'thù lao'
+            'dự phòng nợ xấu', 'chi tiết vay', 'tiểu mục', 'thù lao', 'chi phí khác', 'thu nhập khác'
         ])
 
         # Phạt Thuyết minh Bên liên quan (Disambiguation Rule)
@@ -354,10 +356,10 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
             if st_type == "STATEMENT_BS": score += 50.0
             elif st_type in ["STATEMENT_IS", "STATEMENT_NOTE"]: score -= 30.0
         elif is_cf_q:
-            if st_type == "STATEMENT_CF": score += 50.0
-            elif st_type in ["STATEMENT_IS", "STATEMENT_BS"]: score -= 30.0
+            if st_type == "STATEMENT_CF": score += 80.0
+            elif st_type in ["STATEMENT_IS", "STATEMENT_BS"]: score -= 50.0
         elif is_note_q:
-            if st_type == "STATEMENT_NOTE": score += 30.0
+            if st_type == "STATEMENT_NOTE": score += 60.0
             elif st_type in ["STATEMENT_IS", "STATEMENT_CF", "STATEMENT_BS"]: score -= 20.0
                 
         is_separate_question = any(keyword in target_desc["question"].lower() for keyword in ['công ty mẹ', 'cty mẹ', 'báo cáo riêng', 'bc riêng', 'riêng'])
@@ -413,11 +415,12 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
     final_top_n = max(1, top_n)
     selected = [c for score, c in scored_stage2[:final_top_n]]
     
-    # Dynamic Top 1 vs Top 2 Pruning based on Score Gap ($S_1 > 1.25 \times S_2$)
+    # Dynamic Top 1 vs Top 2 Pruning for Single Questions
+    is_single_q = len(target_desc.get("tickers", [])) <= 1 and len(target_desc.get("years", [])) <= 1
     if top_n == 2 and len(scored_stage2) >= 2:
         s1 = scored_stage2[0][0]
         s2 = scored_stage2[1][0]
-        if s1 > 1.25 * s2 or (s1 - s2 > 30.0):
+        if is_single_q or s1 > 1.10 * s2 or (s1 - s2 > 15.0):
             selected = [scored_stage2[0][1]]
             
     return selected

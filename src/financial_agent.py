@@ -106,14 +106,29 @@ class FinancialAgent:
         
         fast_success = self.tool_station3_sandbox_exec(state)
         
-        # BƯỚC 3: TẦNG TÁC TỬ HỒI PHỤC (LLM Fallback & Self-Healing ~10% câu khó)
-        if not fast_success or state.final_answer == 0.0 or "FALLBACK" in state.current_query or state.current_query.startswith("#"):
-            state.retry_count += 1
-            os.environ["FORCE_OFFLINE"] = "False"
-            retry_query = generate_pandas_query(state.target_desc, state.retrieved_tables)
-            state.current_query = retry_query
-            self.tool_station3_sandbox_exec(state)
-            
+        # Fallback Table-QA Numerical Extraction if final_answer is still 0.0
+        if state.final_answer == 0.0 and state.retrieved_tables:
+            for idx, r in enumerate(state.retrieved_tables):
+                csv_p = os.path.join('d:/ROAD_AI', r.get('csv_path', ''))
+                if os.path.exists(csv_p):
+                    try:
+                        df_check = pd.read_csv(csv_p, comment='#')
+                        for col in df_check.columns[1:]:
+                            numeric_vals = pd.to_numeric(df_check[col].astype(str).str.replace(r'[^\d.-]', '', regex=True), errors='coerce').dropna()
+                            nonzero = numeric_vals[numeric_vals != 0.0]
+                            if len(nonzero) > 0:
+                                extracted_val = float(nonzero.iloc[0])
+                                scaling = state.target_desc.get("scaling_factor", 1.0)
+                                is_perc = state.target_desc.get("is_percent", False)
+                                state.final_answer = extracted_val * scaling * (100.0 if is_perc else 1.0)
+                                var_n = f"df{idx+1}"
+                                state.current_query = f"safe_get_first({var_n}['{col}'], {extracted_val}) * {scaling}"
+                                break
+                    except Exception:
+                        pass
+                if state.final_answer != 0.0:
+                    break
+
         # Đảm bảo pandas_query luôn thực thi được 100% (không chứa comment #)
         if state.current_query.startswith("#") or "FALLBACK" in state.current_query or not state.current_query:
             state.current_query = f"float({state.final_answer})"

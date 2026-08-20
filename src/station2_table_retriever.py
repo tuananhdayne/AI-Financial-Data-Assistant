@@ -31,8 +31,8 @@ def retrieve_tables_for_question(target_desc, candidate_tables, top_n=2):
         if primary_tag not in formatted_relevant_tables:
             formatted_relevant_tables.append(primary_tag)
             
-        # Optional parent start_line tag for continuation tables
-        if parent_start and parent_start != start_line:
+        # Optional parent start_line tag for continuation tables only if multi-table retrieval is active
+        if top_n > 1 and len(retrieved_tables) > 1 and parent_start and parent_start != start_line:
             parent_tag = f"{report_id}|{parent_start}"
             if parent_tag not in formatted_relevant_tables:
                 formatted_relevant_tables.append(parent_tag)
