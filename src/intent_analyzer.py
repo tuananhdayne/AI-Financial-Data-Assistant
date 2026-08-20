@@ -376,9 +376,14 @@ def build_target_description(question_text):
         # Simple lookup: match target metrics to Circular 200 standard codes
         custom_syns = formulas_db["circular_200_standard_codes"].get("custom_metric_synonyms", {})
         
-        for metric in target_desc["target_metrics"]:
+        for metric in target_desc.get("target_metrics", []):
+            if not metric:
+                continue
+            metric_str = str(metric).strip()
+            if not metric_str:
+                continue
             matched_code = None
-            metric_lower = metric.lower()
+            metric_lower = metric_str.lower()
             
             # 1. Check custom synonyms first
             for syn_name, syn_code in custom_syns.items():
