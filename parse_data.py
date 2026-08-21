@@ -296,14 +296,33 @@ def process_single_file(file_path, output_dir, ticker_to_name):
         # Get the first row as the table headers
         table_headers = [str(val) for val in df.iloc[0].values if val is not None]
         
-        # Extract full item column (column 0) text for cell content linking
+        # Extract full item column (column 0) text and exact_metric_labels
         item_col_texts = []
+        exact_metric_labels = []
         if not df.empty:
             for val in df.iloc[:, 0].dropna():
                 val_str = str(val).strip()
                 if val_str and not val_str.replace('.', '').replace('-', '').isdigit():
                     item_col_texts.append(val_str)
+                    exact_metric_labels.append(val_str.upper())
         item_col_str = " ".join(item_col_texts)
+        
+        # Extract accounting codes set (column 1 or column 0)
+        account_codes_set = []
+        min_code = None
+        max_code = None
+        if not df.empty:
+            for col_idx in range(min(len(df.columns), 3)):
+                for val in df.iloc[:, col_idx].dropna():
+                    clean_code = str(val).replace('.', '').strip()
+                    if clean_code.isdigit() and 1 <= len(clean_code) <= 4:
+                        if clean_code not in account_codes_set:
+                            account_codes_set.append(clean_code)
+                        c_num = int(clean_code)
+                        if min_code is None or c_num < min_code:
+                            min_code = c_num
+                        if max_code is None or c_num > max_code:
+                            max_code = c_num
         
         metadata = {
             'report_id': report_id,
@@ -319,7 +338,15 @@ def process_single_file(file_path, output_dir, ticker_to_name):
             'table_type': table_type,
             'headers': table_headers,
             'preview': preview_text,
-            'item_col_text': item_col_str
+            'item_col_text': item_col_str,
+            'account_codes_set': account_codes_set,
+            'exact_metric_labels': exact_metric_labels,
+            'table_scope_summary': {
+                'min_code': min_code,
+                'max_code': max_code,
+                'first_label': exact_metric_labels[0] if exact_metric_labels else "",
+                'last_label': exact_metric_labels[-1] if exact_metric_labels else ""
+            }
         }
         metadata_list.append(metadata)
             

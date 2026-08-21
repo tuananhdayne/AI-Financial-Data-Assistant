@@ -273,19 +273,60 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         summary_text = f"Báo cáo: {c.get('report_id', '')} | Loại: {c.get('table_type', '')} | Ngữ cảnh: {ctx_str} | Tiêu đề: {headers_str} | Chỉ tiêu: {item_str[:150]}"
         summary_docs.append(summary_text)
         
-    # 2. FIRST-STAGE RETRIEVAL: Evaluate Domain Rules on ALL Candidates (~50-300 tables in RAM, 0.001s)
+    # 2. FIRST-STAGE RETRIEVAL: 4-TIER HARD SCORING SYSTEM (~50-300 tables in RAM, 0.001s)
     domain_scored = []
+    
+    q_lower = target_desc["question"].lower()
+    metrics_lower = [str(m).lower() for m in target_desc.get("target_metrics", [])]
+    target_codes = [str(c) for c in target_desc.get("target_codes", [])]
+    
     for idx, c in enumerate(candidates):
         score = bm25_scores[idx]
         mem_text = get_table_memory_text(c)
         st_type = get_statement_type(c, mem_text)
         c["statement_type"] = st_type
         
-        q_lower = target_desc["question"].lower()
-        metrics_lower = [str(m).lower() for m in target_desc.get("target_metrics", [])]
         table_ctx = (c.get("table_context", "") + " " + mem_text).lower()
+        account_codes = c.get("account_codes_set", [])
+        exact_labels = c.get("exact_metric_labels", [])
+        exact_labels_lower = [str(lbl).lower() for lbl in exact_labels]
+        item_text_low = str(c.get("item_col_text", "")).lower()
         
-        # NOTE SECTION TOPIC MAP
+        # -------------------------------------------------------------
+        # TẦNG 1: Mã số kế toán (Code Exact Match) -> +200 điểm
+        # -------------------------------------------------------------
+        has_exact_code_match = False
+        if target_codes:
+            for code in target_codes:
+                if code in account_codes:
+                    score += 200.0
+                    has_exact_code_match = True
+                    break
+                    
+        # -------------------------------------------------------------
+        # TẦNG 2: Cụm từ liền khối (Exact Phrase Match) -> +150 điểm
+        # -------------------------------------------------------------
+        has_exact_phrase_match = False
+        for metric in target_desc.get("target_metrics", []):
+            metric_clean = str(metric).strip().lower()
+            if len(metric_clean) >= 4:
+                # Check exact phrase in item_col_text or exact_metric_labels
+                if metric_clean in item_text_low or any(metric_clean in lbl for lbl in exact_labels_lower):
+                    score += 150.0
+                    has_exact_phrase_match = True
+                    break
+                elif metric_clean in table_ctx:
+                    score += 50.0
+                    
+        # Phạt nặng (-100đ) cho so khớp từ rải rác nếu không khớp cụm từ liền khối
+        if not has_exact_phrase_match and not has_exact_code_match:
+            fragment_match_count = sum(1 for m in metrics_lower if any(w in item_text_low for w in m.split() if len(w) >= 3))
+            if fragment_match_count > 0 and len(metrics_lower) > 0:
+                score -= 30.0
+
+        # -------------------------------------------------------------
+        # TẦNG 3: Khớp Thuyết minh chuyên đề (Topic Section Map) -> +100 điểm
+        # -------------------------------------------------------------
         topic_map = {
             "FINANCIAL_EXPENSES_INCOME": {
                 "keywords": ["lãi tiền gửi", "chi phí lãi vay", "doanh thu tài chính", "chi phí tài chính", "lỗ chênh lệch tỷ giá", "lãi tiền cho vay"],
@@ -314,7 +355,7 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         for topic_name, topic_data in topic_map.items():
             if any(kw in q_lower or any(kw in m for m in metrics_lower) for kw in topic_data["keywords"]):
                 if any(note_kw in table_ctx for note_kw in topic_data["notes"]):
-                    score += 25.0
+                    score += 100.0
                     break
 
         # Rule 1: Income Statement Question (STATEMENT_IS)
@@ -356,7 +397,7 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
             if st_type == "STATEMENT_BS": score += 50.0
             elif st_type in ["STATEMENT_IS", "STATEMENT_NOTE"]: score -= 30.0
         elif is_cf_q:
-            if st_type == "STATEMENT_CF": score += 80.0
+            if st_type == "STATEMENT_CF": score += 100.0
             elif st_type in ["STATEMENT_IS", "STATEMENT_BS"]: score -= 50.0
         elif is_note_q:
             if st_type == "STATEMENT_NOTE": score += 60.0
@@ -372,28 +413,14 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
             if "consolidated" in c["report_id"]: score += 15.0
             elif "separate" in c["report_id"]: score -= 15.0
 
-        for metric in target_desc.get("target_metrics", []):
-            metric_clean = str(metric).strip().lower()
-            if len(metric_clean) >= 3 and len(metric_clean) < 60:
-                if metric_clean in mem_text.lower():
-                    score += 25.0
-                    break
-                
-        if os.environ.get("USE_CODE_BOOSTER", "True") == "True":
-            table_type = c.get("table_type", "")
-            for code in target_desc.get("target_codes", []):
-                if str(code) in mem_text:
-                    if table_type in ["Balance Sheet", "Income Statement", "Cash Flow Statement"]:
-                        score += 25.0
-                    else:
-                        score += 12.0
-                    
         domain_scored.append((score, c, idx))
         
     domain_scored.sort(key=lambda x: x[0], reverse=True)
     top_candidates = domain_scored[:5]
     
-    # 3. SECOND-STAGE RE-RANKING: BGE-M3 Embedding Cosine on Top 5 Domain Candidates
+    # -------------------------------------------------------------
+    # TẦNG 4: Vector Embedding Dense Scoring (BGE-M3) Tie-breaker
+    # -------------------------------------------------------------
     stage2_docs = [summary_docs[idx] for _, c, idx in top_candidates]
     bge_rerank_scores = get_reranker_bge_scores_local(target_desc["question"], stage2_docs)
 
@@ -403,24 +430,21 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         final_score = score_domain + bge_boost
         scored_stage2.append((final_score, c))
         
-    # Sort Stage 2 Re-ranked candidates in descending order
     scored_stage2.sort(key=lambda x: x[0], reverse=True)
     
-    # Print Re-ranked Top 5 results
-    print("\nKết quả xếp hạng Re-ranking Top 5 ứng viên:")
+    print("\nKết quả xếp hạng 4-Tier Hard Scoring Top 5 ứng viên:")
     for idx, (score, c) in enumerate(scored_stage2[:5]):
         print(f"  Top {idx+1}: Score={score:.2f} | Bảng {c['report_id']}_table_{c['table_index']} | Loại: {c['table_type']}")
         
-    # Respect requested top_n limit & apply Score Gap Pruning
     final_top_n = max(1, top_n)
     selected = [c for score, c in scored_stage2[:final_top_n]]
     
-    # Dynamic Top 1 vs Top 2 Pruning for Single Questions
-    is_single_q = len(target_desc.get("tickers", [])) <= 1 and len(target_desc.get("years", [])) <= 1
+    # Dynamic Hard Winner (Chống pha loãng Precision)
     if top_n == 2 and len(scored_stage2) >= 2:
         s1 = scored_stage2[0][0]
         s2 = scored_stage2[1][0]
-        if is_single_q or s1 > 1.10 * s2 or (s1 - s2 > 15.0):
+        is_single_q = len(target_desc.get("tickers", [])) <= 1 and len(target_desc.get("years", [])) <= 1
+        if is_single_q or s1 >= 150.0 or (s1 - s2 > 30.0):
             selected = [scored_stage2[0][1]]
             
     return selected
