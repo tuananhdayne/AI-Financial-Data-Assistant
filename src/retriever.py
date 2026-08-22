@@ -438,15 +438,6 @@ def retrieve_relevant_tables(target_desc, candidates, top_n=2):
         
     final_top_n = max(1, top_n)
     selected = [c for score, c in scored_stage2[:final_top_n]]
-    
-    # Dynamic Hard Winner (Chống pha loãng Precision)
-    if top_n == 2 and len(scored_stage2) >= 2:
-        s1 = scored_stage2[0][0]
-        s2 = scored_stage2[1][0]
-        is_single_q = len(target_desc.get("tickers", [])) <= 1 and len(target_desc.get("years", [])) <= 1
-        if is_single_q or s1 >= 150.0 or (s1 - s2 > 30.0):
-            selected = [scored_stage2[0][1]]
-            
     return selected
 
 _codes_only_cache = {}

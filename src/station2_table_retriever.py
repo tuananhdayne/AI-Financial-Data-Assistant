@@ -23,21 +23,15 @@ def retrieve_tables_for_question(target_desc, candidate_tables, top_n=2):
     formatted_relevant_tables = []
     for t in retrieved_tables:
         report_id = t.get("report_id", "")
-        table_index = t.get("table_index", 1)
         start_line = t.get("start_line", 1)
         parent_start = t.get("parent_table_start_line")
         
-        # Tag A: <report_id>|<table_index> (Matches ground truth index e.g. |50, |12, |8)
-        tag_index = f"{report_id}|{table_index}"
-        if tag_index not in formatted_relevant_tables:
-            formatted_relevant_tables.append(tag_index)
+        # Primary tag: <report_id>|<start_line> (Official BTC Ground Truth Format)
+        primary_tag = f"{report_id}|{start_line}"
+        if primary_tag not in formatted_relevant_tables:
+            formatted_relevant_tables.append(primary_tag)
             
-        # Tag B: <report_id>|<start_line> (Matches line offset e.g. |1179, |414)
-        tag_line = f"{report_id}|{start_line}"
-        if tag_line not in formatted_relevant_tables:
-            formatted_relevant_tables.append(tag_line)
-            
-        # Optional parent start_line tag for continuation tables
+        # Parent start_line tag for continuation tables
         if parent_start and parent_start != start_line:
             parent_tag = f"{report_id}|{parent_start}"
             if parent_tag not in formatted_relevant_tables:
